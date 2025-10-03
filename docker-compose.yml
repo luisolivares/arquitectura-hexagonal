@@ -1,0 +1,7 @@
+services:
+  banco-app:
+    build: .
+    container_name: banco-container
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
