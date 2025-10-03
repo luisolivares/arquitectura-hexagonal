@@ -1,4 +1,4 @@
-# 🚀 API REST Bancaria con Spring Boot 3 + Docker Compose
+# API REST Bancaria con Spring Boot 3 + Docker Compose
 
 Este proyecto es una **API REST** construida con **Spring Boot 3**, utilizando **H2** como base de datos en memoria y documentada con **Swagger OpenAPI**.
 
@@ -8,7 +8,7 @@ Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el C
 
 ---
 
-## 📦 Tecnologías utilizadas
+## Tecnologías utilizadas
 - Java 17
 - Spring Boot 3
 - Spring Data JPA (con H2 en memoria)
@@ -18,18 +18,24 @@ Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el C
 
 ---
 
-### ▶️ Cómo levantar el proyecto
+### Cómo levantar el proyecto
 
-### 1. Ejecutar el Docker Desktop.
-
-
-### 2. Nos ubicamos en la raíz del proyecto.
+### 1. Descargamos nuestro proyecto en el repositorio.
 
 ```sh
-   cd challange-api-rest-banco
+  git clone https://github.com/luisolivares/arquitectura-hexagonal.git
 ```
 
-### 3. Levantar la aplicación con Docker Compose
+### 2. Ejecutar el Docker Desktop.
+
+
+### 3. Nos ubicamos en la raíz del proyecto.
+
+```sh
+   cd arquitectura-hexagonal
+```
+
+### 4. Levantar la aplicación con Docker Compose
 ```sh
    docker compose up --build
 ```
@@ -61,15 +67,14 @@ Levantar el contenedor mapeando el puerto 8080.
 - **Password:** sa
 
 
-🛠️ Detener la aplicación
-Si está corriendo en primer plano
+Detener la aplicación si está corriendo en primer plano
 
 Presioná **Ctrl + C** en la terminal donde ejecutaste `docker compose up`.
 
 Si está corriendo en segundo plano (detached mode)
 docker compose down
 
-### 🔹 Ejecución en segundo plano
+### Ejecución en segundo plano
 
 Para correr sin logs en la terminal:
 
@@ -83,7 +88,7 @@ Y para detener:
 docker compose down
 ```
 
-### 📖 Notas
+### Notas
 
 La base de datos H2 es en memoria, por lo que los datos se pierden al detener el contenedor.
 
