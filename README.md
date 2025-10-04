@@ -14,6 +14,8 @@ Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el C
 - Spring Data JPA (con H2 en memoria)
 - Spring Validation
 - Springdoc OpenAPI (Swagger UI)
+- JUnit Mockito
+- Maven
 - Docker & Docker Compose
 
 ---
@@ -48,6 +50,18 @@ Crear la imagen de la aplicación Spring Boot.
 
 Levantar el contenedor mapeando el puerto 8080.
 
+- Construir el JAR del proyecto con Maven dentro de un contenedor.
+
+- Crear las imágenes necesarias.
+
+- Levantar los contenedores de:
+
+  - Microservicio Spring Boot (puerto 8080)
+
+  - Prometheus (puerto 9090)
+
+  - Grafana (puerto 3000)
+
 ### 4. Acceder a la aplicación
 
 - **API Base** → http://localhost:8080/challange-api-rest-banco
@@ -67,12 +81,64 @@ Levantar el contenedor mapeando el puerto 8080.
 - **Password:** sa
 
 
-Detener la aplicación si está corriendo en primer plano
+
+### Monitoreo con Prometheus y Grafana
+🔹 Spring Boot Actuator + Prometheus
+
+La aplicación expone métricas en formato Prometheus: http://localhost:8080/challange-api-rest-banco/actuator/prometheus
+
+Prometheus está configurado para scrapear automáticamente este endpoint gracias al archivo `prometheus.yml`.
+
+🔹 Prometheus
+
+Accede a la interfaz web de Prometheus:
+👉 http://localhost:9090
+
+Allí podrás consultar métricas como:
+
+- `http_server_requests_seconds_count`
+
+- `jvm_memory_used_bytes`
+
+- `system_cpu_usage`
+
+🔹 Grafana
+
+Accede a Grafana en:
+👉 http://localhost:3000
+
+Credenciales por defecto:
+
+- Usuario: admin
+
+- Contraseña: admin
+
+#### Configuración inicial en Grafana:
+
+- Ingresar con admin / admin (se pedirá cambiar la contraseña).
+
+- Ir a Connections → Data sources → Add data source.
+
+- Seleccionar Prometheus.
+
+- En la URL colocar: `http://prometheus:9090`.
+
+- Guardar y probar conexión.
+
+- Importar un dashboard de métricas de Spring Boot desde Grafana Marketplace (ejemplo ID: 4701).
+
+
+## Comandos utiles
+
+### Detener la aplicación si está corriendo en primer plano
 
 Presioná **Ctrl + C** en la terminal donde ejecutaste `docker compose up`.
 
-Si está corriendo en segundo plano (detached mode)
-docker compose down
+### Si está corriendo en segundo plano (detached mode)
+`docker compose down`.
+
+### Ver logs de la aplicación
+`docker logs -f banco-container`
 
 ### Ejecución en segundo plano
 
