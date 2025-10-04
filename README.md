@@ -62,7 +62,7 @@ Levantar el contenedor mapeando el puerto 8080.
 
   - Grafana (puerto 3000)
 
-### 4. Acceder a la aplicación
+### 5. Acceder a la aplicación
 
 - **API Base** → http://localhost:8080/challange-api-rest-banco
 
@@ -80,7 +80,7 @@ Levantar el contenedor mapeando el puerto 8080.
 
 - **Password:** sa
 
-
+---
 
 ### Monitoreo con Prometheus y Grafana
 🔹 Spring Boot Actuator + Prometheus
@@ -127,6 +127,7 @@ Credenciales por defecto:
 
 - Importar un dashboard de métricas de Spring Boot desde Grafana Marketplace (ejemplo ID: 4701).
 
+---
 
 ## Comandos utiles
 
@@ -153,6 +154,8 @@ Y para detener:
 ```sh
 docker compose down
 ```
+
+---
 
 ### Notas
 
