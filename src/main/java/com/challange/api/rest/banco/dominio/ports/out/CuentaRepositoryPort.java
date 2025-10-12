@@ -14,6 +14,6 @@ public interface CuentaRepositoryPort {
 
     Cuenta modificarCuenta(Cuenta cuenta);
 
-    Cuenta baja(String numeroCuenta, boolean estado);
+    Cuenta baja(String numeroCuenta);
 
 }

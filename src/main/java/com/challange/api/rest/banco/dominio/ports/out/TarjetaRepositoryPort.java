@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TarjetaRepositoryPort {
 
-    Tarjeta alta(Tarjeta empresa);
+    Tarjeta alta(Tarjeta tarjeta);
 
     Tarjeta buscarPorNumeroTarjeta(String numeoTarjeta);
 

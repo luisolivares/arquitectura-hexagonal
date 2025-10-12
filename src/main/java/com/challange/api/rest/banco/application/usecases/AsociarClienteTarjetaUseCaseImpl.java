@@ -1,10 +1,14 @@
 package com.challange.api.rest.banco.application.usecases;
 
+import com.challange.api.rest.banco.dominio.exceptions.ClienteException;
 import com.challange.api.rest.banco.dominio.model.Cliente;
 import com.challange.api.rest.banco.dominio.model.Tarjeta;
+import com.challange.api.rest.banco.dominio.model.TipoDocumento;
 import com.challange.api.rest.banco.dominio.ports.in.AsociarClienteTarjetaUseCase;
 import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
 import com.challange.api.rest.banco.dominio.ports.out.TarjetaRepositoryPort;
+
+import java.util.Optional;
 
 public class AsociarClienteTarjetaUseCaseImpl implements AsociarClienteTarjetaUseCase {
 
@@ -17,10 +21,16 @@ public class AsociarClienteTarjetaUseCaseImpl implements AsociarClienteTarjetaUs
     }
 
     @Override
-    public Cliente asociarClienteTarjetaUseCase(String numeroDocumentoCliente, String numeroTarjeta) {
+    public Cliente asociarClienteTarjetaUseCase(TipoDocumento tipoDocumento, String numeroDocumentoCliente, String numeroTarjeta) {
 
-        Cliente cliente = clienteRepositoryPort.buscarPorNumeroDocumento(numeroDocumentoCliente);
-        Tarjeta tarjeta = tarjetaRepositoryPort.buscarPorNumeroTarjeta(numeroTarjeta);
-        return clienteRepositoryPort.asociarClienteTarjeta(cliente, tarjeta);
+        Optional<Cliente> cliente = Optional.ofNullable(clienteRepositoryPort.buscarPorTipoYNumeroDocumento(tipoDocumento, numeroDocumentoCliente));
+        Optional<Tarjeta> tarjeta = Optional.ofNullable(tarjetaRepositoryPort.buscarPorNumeroTarjeta(numeroTarjeta));
+
+        if (cliente.isPresent() || tarjeta.isPresent()) {
+            return clienteRepositoryPort.asociarClienteTarjeta(cliente.get(), tarjeta.get());
+        } else {
+            throw new ClienteException("No existe el cliente o tarjeta para su asociación", 404);
+        }
+
     }
 }

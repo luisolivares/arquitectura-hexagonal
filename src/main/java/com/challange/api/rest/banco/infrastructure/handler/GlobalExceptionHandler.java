@@ -1,8 +1,14 @@
 package com.challange.api.rest.banco.infrastructure.handler;
 
+import com.challange.api.rest.banco.dominio.exceptions.ClienteException;
+import com.challange.api.rest.banco.dominio.exceptions.CuentaException;
+import com.challange.api.rest.banco.dominio.exceptions.MovimientoException;
+import com.challange.api.rest.banco.dominio.exceptions.TarjetaException;
+import com.challange.api.rest.banco.infrastructure.common.ResponseApiDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -60,6 +67,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeExceptions(RuntimeException ex, HttpServletRequest request) {
+        log.info(ex.getClass().getName());
+        log.error(ex.getMessage(), ex);
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         errorResponse.setError("Internal Server Error");
@@ -68,5 +77,59 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+
+    @ExceptionHandler(ClienteException.class)
+    public ResponseEntity<?> usuarioException(ClienteException ex) {
+        // Devuelve una ResponseEntity con el código de estado y el mensaje personalizados
+        // de la ResponseStatusException
+        log.info(ex.getClass().getName());
+        log.error(ex.getMensaje(), ex);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(ex.getMensaje());
+        final ApiError apiError = new ApiError(HttpStatus.valueOf(ex.getCodigoHttp()), ex.getLocalizedMessage(), Arrays.asList(builder.toString()));
+        ResponseApiDTO responseApiDTO = new ResponseApiDTO(null, apiError);
+        return new ResponseEntity<>(responseApiDTO, new HttpHeaders(), apiError.getStatus());
+    }
+
+
+    @ExceptionHandler(CuentaException.class)
+    public ResponseEntity<?> cuentaException(CuentaException ex) {
+        // Devuelve una ResponseEntity con el código de estado y el mensaje personalizados
+        // de la ResponseStatusException
+        log.info(ex.getClass().getName());
+        log.error(ex.getMensaje(), ex);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(ex.getMensaje());
+        final ApiError apiError = new ApiError(HttpStatus.valueOf(ex.getCodigoHttp()), ex.getLocalizedMessage(), Arrays.asList(builder.toString()));
+        ResponseApiDTO responseApiDTO = new ResponseApiDTO(null, apiError);
+        return new ResponseEntity<>(responseApiDTO, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler(TarjetaException.class)
+    public ResponseEntity<?> tarjetaException(TarjetaException ex) {
+        // Devuelve una ResponseEntity con el código de estado y el mensaje personalizados
+        // de la ResponseStatusException
+        log.info(ex.getClass().getName());
+        log.error(ex.getMensaje(), ex);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(ex.getMensaje());
+        final ApiError apiError = new ApiError(HttpStatus.valueOf(ex.getCodigoHttp()), ex.getLocalizedMessage(), Arrays.asList(builder.toString()));
+        ResponseApiDTO responseApiDTO = new ResponseApiDTO(null, apiError);
+        return new ResponseEntity<>(responseApiDTO, new HttpHeaders(), apiError.getStatus());
+    }
+
+
+    @ExceptionHandler(MovimientoException.class)
+    public ResponseEntity<?> movimientoException(MovimientoException ex) {
+        // Devuelve una ResponseEntity con el código de estado y el mensaje personalizados
+        // de la ResponseStatusException
+        log.info(ex.getClass().getName());
+        log.error(ex.getMensaje(), ex);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(ex.getMensaje());
+        final ApiError apiError = new ApiError(HttpStatus.valueOf(ex.getCodigoHttp()), ex.getLocalizedMessage(), Arrays.asList(builder.toString()));
+        ResponseApiDTO responseApiDTO = new ResponseApiDTO(null, apiError);
+        return new ResponseEntity<>(responseApiDTO, new HttpHeaders(), apiError.getStatus());
+    }
 
 }

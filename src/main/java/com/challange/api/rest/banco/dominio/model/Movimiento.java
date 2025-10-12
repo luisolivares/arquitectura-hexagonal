@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 public class Movimiento {
 
-    private String idMovimiento;
+    private Long idMovimiento;
     private String concepto;
     private String referenciaOperacion;
     private LocalDate fechaMovimiento;

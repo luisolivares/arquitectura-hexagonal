@@ -26,22 +26,4 @@ public class ResponseUtils {
                 .build();
     }
 
-    /*
-
-    public ResponseEntity<Response> formatExceptionResponse(Exception exception, HttpStatus httpStatus) {
-        Response body = Response.ResponseFail(exception.getMessage(), String.valueOf(httpStatus.value()));
-        body.getStatus().setAppId(appId);
-        return new ResponseEntity<>(body, httpStatus);
-    }
-
-
-    public ResponseEntity<Response> ResponseFailWithData(Object data, String mensaje, String code, HttpStatus httpStatus) {
-        Response body = new Response(data, mensaje, TYPE_STATUS_ERROR, SUCCESS_FALSE, code);
-        body.getStatus().setAppId(appId);
-        return new ResponseEntity<>(body, httpStatus);
-
-    }
-
-*/
-
 }

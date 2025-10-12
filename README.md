@@ -1,14 +1,18 @@
 # API REST Bancaria con Spring Boot 3 + Docker Compose
 
-Este proyecto es una **API REST** construida con **Spring Boot 3**, utilizando **H2** como base de datos en memoria y documentada con **Swagger OpenAPI**.
+Este proyecto es una **API REST** construida con **Spring Boot 3**, utilizando **H2** como base de datos en memoria y
+documentada con **Swagger OpenAPI**.
 
-Se provee un `Dockerfile` y un `docker-compose.yml` para facilitar la ejecución sin necesidad de tener Maven ni JDK instalados en la máquina host.
+Se provee un `Dockerfile` y un `docker-compose.yml` para facilitar la ejecución sin necesidad de tener Maven ni JDK
+instalados en la máquina host.
 
-Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el CRUD debe permitir Altas, bajas, modificaciones, y consultas.
+Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el CRUD debe permitir Altas, bajas,
+modificaciones, y consultas.
 
 ---
 
 ## Tecnologías utilizadas
+
 - Java 17
 - Spring Boot 3
 - Spring Data JPA (con H2 en memoria)
@@ -30,7 +34,6 @@ Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el C
 
 ### 2. Ejecutar el Docker Desktop.
 
-
 ### 3. Nos ubicamos en la raíz del proyecto.
 
 ```sh
@@ -38,6 +41,7 @@ Este proyecto exponga un CRUD completo sobre entidades bancarias, es decir, el C
 ```
 
 ### 4. Levantar la aplicación con Docker Compose
+
 ```sh
    docker compose up --build
 ```
@@ -56,11 +60,11 @@ Levantar el contenedor mapeando el puerto 8080.
 
 - Levantar los contenedores de:
 
-  - Microservicio Spring Boot (puerto 8080)
+    - Microservicio Spring Boot (puerto 8080)
 
-  - Prometheus (puerto 9090)
+    - Prometheus (puerto 9090)
 
-  - Grafana (puerto 3000)
+    - Grafana (puerto 3000)
 
 ### 5. Acceder a la aplicación
 
@@ -83,6 +87,7 @@ Levantar el contenedor mapeando el puerto 8080.
 ---
 
 ### Monitoreo con Prometheus y Grafana
+
 🔹 Spring Boot Actuator + Prometheus
 
 La aplicación expone métricas en formato Prometheus: http://localhost:8080/challange-api-rest-banco/actuator/prometheus
@@ -136,9 +141,11 @@ Credenciales por defecto:
 Presioná **Ctrl + C** en la terminal donde ejecutaste `docker compose up`.
 
 ### Si está corriendo en segundo plano (detached mode)
+
 `docker compose down`.
 
 ### Ver logs de la aplicación
+
 `docker logs -f banco-container`
 
 ### Ejecución en segundo plano

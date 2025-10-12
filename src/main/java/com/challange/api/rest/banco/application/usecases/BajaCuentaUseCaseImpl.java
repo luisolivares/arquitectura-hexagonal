@@ -13,7 +13,7 @@ public class BajaCuentaUseCaseImpl implements BajaCuentaUseCase {
     }
 
     @Override
-    public Cuenta baja(String numeroCuenta, boolean estado) {
-        return port.baja(numeroCuenta, estado);
+    public Cuenta baja(String numeroCuenta) {
+        return port.baja(numeroCuenta);
     }
 }

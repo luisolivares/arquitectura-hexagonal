@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 public class Cuenta {
 
-    private int idCuenta;
+    private Long idCuenta;
     private String numeroCuenta;
     private TipoCuenta tipoCuenta;
     private LocalDate fechaAlta;
