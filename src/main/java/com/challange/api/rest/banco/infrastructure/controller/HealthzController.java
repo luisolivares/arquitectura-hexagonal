@@ -1,6 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.controller;
 
 import com.challange.api.rest.banco.infrastructure.utils.ResponseUtils;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -33,9 +33,9 @@ public class HealthzController {
 
     private final ResponseUtils responseUtils;
 
+    @Operation(summary = "Salud o Healthz de API REST.", description = "Endpoint para verificar la salud o healthz de nuestra API REST.")
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody
-    ResponseEntity healtz() {
+    public ResponseEntity healtz() {
         HashMap<String, String> response = new HashMap<>();
         response.put("API", nombre);
         response.put("Descripción", descripcion);

@@ -4,10 +4,7 @@ import com.challange.api.rest.banco.dominio.model.Cliente;
 import com.challange.api.rest.banco.dominio.model.Genero;
 import com.challange.api.rest.banco.dominio.model.TipoDocumento;
 import com.challange.api.rest.banco.dominio.ports.in.*;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,11 +38,12 @@ class ServiceClienteTest {
     private ServiceCliente serviceCliente;
 
     @Test
+    @DisplayName("Damos alta o creación de un cliente bancarario.")
     @Order(1)
     void altaToAltaClienteUseCaseTest() {
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
+                //.idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -65,13 +63,13 @@ class ServiceClienteTest {
     }
 
     @Test
+    @DisplayName("Damos baja o eliminación lógica a un cliente bancarario.")
     @Order(2)
     void bajaToBajaClienteUseCaseTest() {
         TipoDocumento tipoDocumento = TipoDocumento.CEDULA;
         String numeroDocumento = "98956366";
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -92,13 +90,13 @@ class ServiceClienteTest {
     }
 
     @Test
+    @DisplayName("Busqueda de un cliente bancarario dado su tipo y numero de documento.")
     @Order(3)
     void buscarPorDocumentoTest() {
         TipoDocumento tipoDocumento = TipoDocumento.CEDULA;
         String numeroDocumento = "98956366";
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -119,12 +117,12 @@ class ServiceClienteTest {
     }
 
     @Test
+    @DisplayName("Listamos a clientes bancararios.")
     @Order(4)
     void listadoTest() {
 
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -146,11 +144,11 @@ class ServiceClienteTest {
     }
 
     @Test
+    @DisplayName("Modificamos a un cliente bancarario.")
     @Order(5)
     void delegateModificarTest() {
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -161,6 +159,10 @@ class ServiceClienteTest {
                 .numeroDocumento("98956366")
                 .estado(true)
                 .build();
+
+        when(buscarClienteUseCase.buscarPorDocumento(cliente.getTipoDocumento(), cliente.getNumeroDocumento()))
+                .thenReturn(cliente);
+
         when(modificarClienteUseCase.modificar(cliente)).thenReturn(cliente);
 
         Cliente result = serviceCliente.modificar(cliente);
@@ -170,13 +172,13 @@ class ServiceClienteTest {
     }
 
     @Test
+    @DisplayName("Asociamos a un cliente bancario con una tarjeta bancaria dado el numero de documento del cliente así como del numero de tarjeta")
     @Order(6)
     void asociarClienteTarjetaTest() {
         String tarjeta = "9999";
         String numeroDocumento = "98956366";
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -188,23 +190,23 @@ class ServiceClienteTest {
                 .estado(true)
                 .build();
 
-        when(asociarClienteTarjetaUseCase.asociarClienteTarjetaUseCase(numeroDocumento, tarjeta))
+        when(asociarClienteTarjetaUseCase.asociarClienteTarjetaUseCase(TipoDocumento.CEDULA, numeroDocumento, tarjeta))
                 .thenReturn(cliente);
 
-        Cliente result = serviceCliente.asociarClienteTarjetaUseCase(numeroDocumento, tarjeta);
+        Cliente result = serviceCliente.asociarClienteTarjetaUseCase(TipoDocumento.CEDULA, numeroDocumento, tarjeta);
 
         assertEquals(cliente, result);
-        verify(asociarClienteTarjetaUseCase).asociarClienteTarjetaUseCase(numeroDocumento, tarjeta);
+        verify(asociarClienteTarjetaUseCase).asociarClienteTarjetaUseCase(TipoDocumento.CEDULA, numeroDocumento, tarjeta);
     }
 
     @Test
+    @DisplayName("Asociamos a un cliente bancario con una cuenta bancaria dado el numero de documento del cliente así como del numero de cuenta")
     @Order(7)
     void asociarClienteCuentaTest() {
         String documento = "98956366";
         String cuenta = "1111";
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
@@ -216,12 +218,12 @@ class ServiceClienteTest {
                 .estado(true)
                 .build();
 
-        when(asociarClienteCuentaUseCase.asociarClienteCuentaUseCase(documento, cuenta))
+        when(asociarClienteCuentaUseCase.asociarClienteCuentaUseCase(TipoDocumento.CEDULA, documento, cuenta))
                 .thenReturn(cliente);
 
-        Cliente result = serviceCliente.asociarClienteCuentaUseCase(documento, cuenta);
+        Cliente result = serviceCliente.asociarClienteCuentaUseCase(TipoDocumento.CEDULA, documento, cuenta);
 
         assertEquals(cliente, result);
-        verify(asociarClienteCuentaUseCase).asociarClienteCuentaUseCase(documento, cuenta);
+        verify(asociarClienteCuentaUseCase).asociarClienteCuentaUseCase(TipoDocumento.CEDULA, documento, cuenta);
     }
 }

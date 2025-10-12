@@ -1,8 +1,9 @@
-package com.challange.api.rest.banco.infrastructure.repository;
+package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
 import com.challange.api.rest.banco.dominio.model.Cuenta;
 import com.challange.api.rest.banco.dominio.ports.out.CuentaRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.CuentaEntity;
+import com.challange.api.rest.banco.infrastructure.repository.CuentaRepository;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,27 +27,20 @@ public class JPACuentaRepositoryAdapter implements CuentaRepositoryPort {
     @Transactional
     @Override
     public Cuenta alta(Cuenta cuenta) {
-        Optional<CuentaEntity> cuentaEntity = cuentaRepository.buscarPorNumero(cuenta.getNumeroCuenta());
+//        CuentaEntity entity = CuentaEntity
+//                .builder()
+//                .tipoCuenta(cuenta.getTipoCuenta())
+//                .numeroCuenta(cuenta.getNumeroCuenta())
+//                .saldoInicial(cuenta.getSaldoInicial())
+//                .saldoMovimiento(cuenta.getSaldoMovimiento())
+//                .saldoDisponible(cuenta.getSaldoDisponible())
+//                .activo(cuenta.isActivo())
+//                .fechaAlta(cuenta.getFechaAlta())
+//                .build();
 
-        Cuenta response = null;
+        CuentaEntity entity = ObjectMapperUtils.map(cuenta, CuentaEntity.class);
 
-        if (cuentaEntity.isPresent()) {
-            response = ObjectMapperUtils.map(cuentaEntity, Cuenta.class);
-        } else {
-            CuentaEntity entity = CuentaEntity
-                    .builder()
-                    .tipoCuenta(cuenta.getTipoCuenta())
-                    .numeroCuenta(cuenta.getNumeroCuenta())
-                    .saldoInicial(cuenta.getSaldoInicial())
-                    .saldoMovimiento(cuenta.getSaldoMovimiento())
-                    .saldoDisponible(cuenta.getSaldoDisponible())
-                    .activo(cuenta.isActivo())
-                    .fechaAlta(cuenta.getFechaAlta())
-                    .build();
-            response = ObjectMapperUtils.map(cuentaRepository.saveAndFlush(entity), Cuenta.class);
-        }
-
-        return response;
+        return ObjectMapperUtils.map(cuentaRepository.saveAndFlush(entity), Cuenta.class);
     }
 
     @Transactional(readOnly = true)
@@ -80,36 +74,15 @@ public class JPACuentaRepositoryAdapter implements CuentaRepositoryPort {
     @Transactional
     @Override
     public Cuenta modificarCuenta(Cuenta cuenta) {
-        Optional<CuentaEntity> cuentaEntity = cuentaRepository.buscarPorNumero(cuenta.getNumeroCuenta());
-
-        Cuenta response = null;
-
-        if (cuentaEntity.isPresent()) {
-            CuentaEntity entity = cuentaEntity.get();
-            entity.setTipoCuenta(cuenta.getTipoCuenta());
-            entity.setSaldoInicial(cuenta.getSaldoInicial());
-            entity.setSaldoMovimiento(cuenta.getSaldoMovimiento());
-            entity.setSaldoDisponible(cuenta.getSaldoDisponible());
-            entity.setActivo(cuenta.isActivo());
-            entity.setFechaAlta(cuenta.getFechaAlta());
-            response = ObjectMapperUtils.map(cuentaRepository.saveAndFlush(entity), Cuenta.class);
-        }
-
-        return response;
+        CuentaEntity cuentaEntity = ObjectMapperUtils.map(cuenta, CuentaEntity.class);
+        return ObjectMapperUtils.map(cuentaRepository.saveAndFlush(cuentaEntity), Cuenta.class);
     }
 
     @Transactional
     @Override
-    public Cuenta baja(String numeroCuenta, boolean estado) {
+    public Cuenta baja(String numeroCuenta) {
         Optional<CuentaEntity> cuentaEntity = cuentaRepository.buscarPorNumero(numeroCuenta);
-        Cuenta cuenta = null;
-
-        if (cuentaEntity.isPresent()) {
-            cuentaEntity.get().setActivo(estado);
-            cuenta = ObjectMapperUtils.map(cuentaRepository.saveAndFlush(cuentaEntity.get()), Cuenta.class);
-        }
-
-        return cuenta;
+        return ObjectMapperUtils.map(cuentaRepository.saveAndFlush(cuentaEntity.get()), Cuenta.class);
     }
 
 }

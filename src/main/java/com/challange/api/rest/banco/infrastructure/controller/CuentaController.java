@@ -38,7 +38,7 @@ public class CuentaController {
     @Operation(summary = "Crear cuenta", description = "Registra una nueva cuenta en el sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cuenta creada correctamente",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class))),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Cuenta.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content)
     })
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,13 +65,13 @@ public class CuentaController {
             @ApiResponse(responseCode = "200", description = "Listado de cuentas obtenido",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class)))
     })
-    @GetMapping(value = "/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Cuenta>> buscarTodasCuentas(
-            @Parameter(description = "Número de página (0 en adelante)", required = true, example = "0")
-            @Min(0) @PathVariable int page,
-            @Parameter(description = "Cantidad de cuentas por página (máx. 100)", required = true, example = "10")
-            @Min(1) @Max(100) @PathVariable int size) {
-        return new ResponseEntity<>(serviceCuenta.buscarTodasCuentas(page, size), HttpStatus.OK);
+            @RequestParam(required = true, name = "pageNo", defaultValue = "0") @Min(0) int pageNo,
+            @RequestParam(required = true, name = "pageSize", defaultValue = "10") @Min(1) @Max(100) int pageSize
+
+    ) {
+        return new ResponseEntity<>(serviceCuenta.buscarTodasCuentas(pageNo, pageSize), HttpStatus.OK);
     }
 
     @Operation(summary = "Dar de baja o activar cuenta", description = "Cambia el estado de una cuenta (activa/inactiva)")
@@ -80,19 +80,17 @@ public class CuentaController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class))),
             @ApiResponse(responseCode = "404", description = "Cuenta no encontrada", content = @Content)
     })
-    @DeleteMapping(value = "/{numeroCuenta}/{estado}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{numeroCuenta}/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cuenta> baja(
             @Parameter(description = "Número único de cuenta", required = true, example = "1234567890")
-            @PathVariable String numeroCuenta,
-            @Parameter(description = "Estado de la cuenta (true=activa, false=inactiva)", required = true, example = "false")
-            @PathVariable boolean estado) {
-        return new ResponseEntity<>(serviceCuenta.baja(numeroCuenta, estado), HttpStatus.OK);
+            @PathVariable String numeroCuenta) {
+        return new ResponseEntity<>(serviceCuenta.baja(numeroCuenta), HttpStatus.OK);
     }
 
     @Operation(summary = "Modificar cuenta", description = "Actualiza los datos de una cuenta existente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cuenta modificada correctamente",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class))),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Cuenta.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content)
     })
     @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)

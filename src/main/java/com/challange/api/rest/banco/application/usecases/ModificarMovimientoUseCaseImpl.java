@@ -13,8 +13,8 @@ public class ModificarMovimientoUseCaseImpl implements ModificarMovimientoUseCas
     }
 
     @Override
-    public Movimiento modificarMovimiento(Movimiento movimiento, long idMovimiento) {
-        return port.modificarMovimiento(movimiento, idMovimiento);
+    public Movimiento modificarMovimiento(Movimiento movimiento) {
+        return port.modificarMovimiento(movimiento);
     }
 
 }

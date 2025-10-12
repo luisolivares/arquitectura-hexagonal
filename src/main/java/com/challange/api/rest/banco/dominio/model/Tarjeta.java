@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Builder
 public class Tarjeta {
 
+    private Long idTarjeta;
     private String numeroTarjeta;
     private LocalDate fechaVencimiento;
     private String nombreTitular;

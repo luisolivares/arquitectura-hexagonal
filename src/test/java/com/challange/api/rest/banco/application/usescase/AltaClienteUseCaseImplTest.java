@@ -5,6 +5,7 @@ import com.challange.api.rest.banco.dominio.model.Cliente;
 import com.challange.api.rest.banco.dominio.model.Genero;
 import com.challange.api.rest.banco.dominio.model.TipoDocumento;
 import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -24,26 +25,25 @@ import static org.mockito.Mockito.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AltaClienteUseCaseImplTest {
 
-
     @Mock
     private ClienteRepositoryPort clienteRepositoryPort;
 
     @InjectMocks
     private AltaClienteUseCaseImpl altaClienteUseCase;
 
-
     @Test
+    @DisplayName("Caso de uso de alta de un cliente")
     void altaCliente() {
-        // Arrange
+
         Cliente cliente = Cliente
                 .builder()
-                .idCliente(1)
+                //.idCliente(1)
                 .email("email@email.com")
                 .nombres("Luis")
                 .apellidos("Gonzalez")
                 .genero(Genero.MASCULINO)
                 .telefono("1176289602")
-                .fechaNacimiento(LocalDate.now())
+                .fechaNacimiento(LocalDate.of(1990, 5, 15))
                 .tipoDocumento(TipoDocumento.CEDULA)
                 .numeroDocumento("98956366")
                 .estado(true)

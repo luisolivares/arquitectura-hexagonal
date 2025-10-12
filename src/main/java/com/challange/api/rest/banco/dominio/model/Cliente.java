@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 public class Cliente {
 
-    private int idCliente;
+    private Long idCliente;
     private String nombres;
     private String apellidos;
     private String telefono;

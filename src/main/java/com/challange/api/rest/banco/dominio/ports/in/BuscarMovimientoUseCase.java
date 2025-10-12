@@ -13,4 +13,8 @@ public interface BuscarMovimientoUseCase {
 
     List<Movimiento> buscarTodo(int page, int size);
 
+    Movimiento buscarMovimientoPorId(long idMovimiento);
+
+    Movimiento buscarMovimientoPorReferenciaOperacion(String referenciaOperacion);
+
 }

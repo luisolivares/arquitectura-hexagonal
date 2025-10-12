@@ -4,6 +4,6 @@ import com.challange.api.rest.banco.dominio.model.Cuenta;
 
 public interface BajaCuentaUseCase {
 
-    Cuenta baja(String numeroCuenta, boolean estado);
+    Cuenta baja(String numeroCuenta);
 
 }
