@@ -13,10 +13,16 @@ public interface MovimientoRepositoryPort {
 
     List<Movimiento> buscarTodo(int page, int size);
 
-    Movimiento modificarMovimiento(Movimiento movimiento, long idMovimiento);
+    Movimiento buscarMovimientoPorId(long idMovimiento);
 
-    Movimiento baja(int idMovimiento, boolean esBaja);
+    Movimiento buscarMovimientoPorReferenciaOperacion(String referenciaOperacion);
+
+    Movimiento modificarMovimiento(Movimiento movimiento);
+
+    void baja(long idMovimiento);
 
     Movimiento asociarClienteCuentaMovimiento(Movimiento movimiento, Cliente cliente, Cuenta cuenta);
+
+    Movimiento asociarClienteTarjetaMovimiento(Movimiento movimiento, Cliente cliente, Tarjeta tarjeta);
 
 }

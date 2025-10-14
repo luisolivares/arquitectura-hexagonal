@@ -19,7 +19,9 @@ public class OpenApiConfig {
                         .title("API REST API de entidades bancarias.")
                         .description("Microservicio con arquitectura REST que expone un CRUD sobre entidades bancarias usando OpenAPI 3.")
                         .termsOfService("terms")
-                        .contact(new Contact().email("@example.dev"))
+                        .contact(new Contact()
+                                .name("Luis Alberto Olivares Peña")
+                                .email("luisolivares8@hotmail.com"))
                         .license(new License().name("GNU"))
                         .version("1.0")
                 );

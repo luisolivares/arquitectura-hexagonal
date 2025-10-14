@@ -26,4 +26,14 @@ public class BuscarMovimientoUseCaseImpl implements BuscarMovimientoUseCase {
     public List<Movimiento> buscarTodo(int page, int size) {
         return port.buscarTodo(page, size);
     }
+
+    @Override
+    public Movimiento buscarMovimientoPorId(long idMovimiento) {
+        return port.buscarMovimientoPorId(idMovimiento);
+    }
+
+    @Override
+    public Movimiento buscarMovimientoPorReferenciaOperacion(String referenciaOperacion) {
+        return port.buscarMovimientoPorReferenciaOperacion(referenciaOperacion);
+    }
 }

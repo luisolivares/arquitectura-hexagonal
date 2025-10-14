@@ -1,9 +1,11 @@
-package com.challange.api.rest.banco.infrastructure.repository;
+package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
 import com.challange.api.rest.banco.dominio.model.Tarjeta;
 import com.challange.api.rest.banco.dominio.ports.out.TarjetaRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.ClienteEntity;
 import com.challange.api.rest.banco.infrastructure.entity.TarjetaEntity;
+import com.challange.api.rest.banco.infrastructure.repository.ClienteRepository;
+import com.challange.api.rest.banco.infrastructure.repository.TarjetaRepository;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,77 +31,38 @@ public class JPATarjetasRepositoryAdapter implements TarjetaRepositoryPort {
     @Transactional
     @Override
     public Tarjeta alta(Tarjeta tarjeta) {
-
-        Optional<TarjetaEntity> tarjetaEntity = tarjetaRepository.buscarPorNumeroTarjeta(tarjeta.getNumeroTarjeta());
-
-        if (tarjetaEntity.isPresent()) {
-            return ObjectMapperUtils.map(tarjetaEntity, Tarjeta.class);
-        } else {
-            TarjetaEntity entity = ObjectMapperUtils.map(tarjeta, TarjetaEntity.class);
-            return ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(entity), Tarjeta.class);
-        }
+        TarjetaEntity tarjetaEntity = ObjectMapperUtils.map(tarjeta, TarjetaEntity.class);
+        return ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(tarjetaEntity), Tarjeta.class);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Tarjeta buscarPorNumeroTarjeta(String numeroTarjeta) {
-
         Optional<TarjetaEntity> tarjetaEntity = tarjetaRepository.buscarPorNumeroTarjeta(numeroTarjeta);
-
-        if (tarjetaEntity.isPresent()) {
-            return ObjectMapperUtils.map(tarjetaEntity, Tarjeta.class);
-        } else {
-            return null;
-        }
+        return ObjectMapperUtils.map(tarjetaEntity, Tarjeta.class);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Tarjeta> buscarTodasTarjetas(int page, int size) {
-
         List<Tarjeta> tarjetas = new ArrayList<>();
         Pageable paging = PageRequest.of(page, size);
         Page<TarjetaEntity> response = tarjetaRepository.findAll(paging);
-
-        if (response.hasContent()) {
-            tarjetas = ObjectMapperUtils.mapAll(response.getContent(), Tarjeta.class);
-            return tarjetas;
-        } else {
-            return tarjetas;
-        }
+        return response.hasContent() ? ObjectMapperUtils.mapAll(response.getContent(), Tarjeta.class) : tarjetas;
     }
 
     @Transactional
     @Override
     public Tarjeta modificarTarjeta(Tarjeta tarjeta) {
-
-        Optional<TarjetaEntity> tarjetaEntity = tarjetaRepository.buscarPorNumeroTarjeta(tarjeta.getNumeroTarjeta());
-
-        if (tarjetaEntity.isPresent()) {
-            tarjetaEntity.get().setNumeroTarjeta(tarjeta.getNumeroTarjeta());
-            tarjetaEntity.get().setFechaVencimiento(tarjeta.getFechaVencimiento());
-            tarjetaEntity.get().setCvv(tarjeta.getCvv());
-            tarjetaEntity.get().setTipoTarjeta(tarjeta.getTipoTarjeta());
-            tarjetaEntity.get().setEmisorTarjeta(tarjeta.getEmisorTarjeta());
-            tarjetaEntity.get().setActivo(tarjeta.isActivo());
-            return ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(tarjetaEntity.get()), Tarjeta.class);
-        } else {
-            return null;
-        }
+        TarjetaEntity tarjetaEntity = ObjectMapperUtils.map(tarjeta, TarjetaEntity.class);
+        return ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(tarjetaEntity), Tarjeta.class);
     }
 
     @Transactional
     @Override
     public Tarjeta baja(String numeroTarjeta) {
         Optional<TarjetaEntity> tarjetaEntity = tarjetaRepository.buscarPorNumeroTarjeta(numeroTarjeta);
-        Tarjeta tarjeta = new Tarjeta();
-
-        if (tarjetaEntity.isPresent()) {
-            tarjetaEntity.get().setActivo(false);
-            tarjeta = ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(tarjetaEntity.get()), Tarjeta.class);
-        }
-
-        return tarjeta;
+        return ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(tarjetaEntity.get()), Tarjeta.class);
     }
 
     @Transactional
@@ -112,7 +75,6 @@ public class JPATarjetasRepositoryAdapter implements TarjetaRepositoryPort {
 
         if (tarjetaEntity.isPresent() && cliente.isPresent()) {
             tarjetaEntity.get().setCliente(cliente.get());
-            tarjetaRepository.saveAndFlush(tarjetaEntity.get());
             tarjeta = ObjectMapperUtils.map(tarjetaRepository.saveAndFlush(tarjetaEntity.get()), Tarjeta.class);
         }
 

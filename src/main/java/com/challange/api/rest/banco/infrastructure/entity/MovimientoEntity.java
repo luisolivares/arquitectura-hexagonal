@@ -18,14 +18,14 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "movimiento")
 @Entity(name = "Movimiento")
+@Table(name = "movimientos")
 public class MovimientoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_movimiento")
-    private long idMovimiento;
+    private Long idMovimiento;
 
     @NotNull(message = "El campo saldoInicial no debe ser nulo")
     @Column(name = "saldo_inicial", nullable = false)
@@ -78,6 +78,5 @@ public class MovimientoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
-
 
 }

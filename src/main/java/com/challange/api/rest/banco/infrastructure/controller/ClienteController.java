@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,7 @@ public class ClienteController {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Cliente.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content)
     })
+
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> alta(@Valid @RequestBody ClienteRequest request) {
         Cliente cliente = ObjectMapperUtils.map(request, Cliente.class);
@@ -49,17 +52,17 @@ public class ClienteController {
     }
 
     @Operation(summary = "Listar clientes paginados", description = "Obtiene una lista de clientes según la página y tamaño indicados")
-    @GetMapping(value = "/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Cliente>> listarTotalClientes(
-            @Parameter(description = "Número de página", required = true, example = "0") @PathVariable int page,
-            @Parameter(description = "Cantidad de resultados por página", required = true, example = "10") @PathVariable int size) {
-        return new ResponseEntity<>(serviceCliente.listado(page, size), HttpStatus.OK);
+            @RequestParam(required = true, name = "pageNo", defaultValue = "0") @Min(0) int pageNo,
+            @RequestParam(required = true, name = "pageSize", defaultValue = "10") @Min(1) @Max(100) int pageSize) {
+        return new ResponseEntity<>(serviceCliente.listado(pageNo, pageSize), HttpStatus.OK);
     }
 
     @Operation(summary = "Buscar cliente por documento", description = "Busca un cliente usando su tipo y número de documento")
     @GetMapping(value = "/tipo_documento/{tipoDocumento}/numero_documento/{numeroDocumento}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> buscarClientePorTipoYDocumento(
-            @Parameter(description = "Tipo de documento", required = true, example = "DNI") @PathVariable TipoDocumento tipoDocumento,
+            @Parameter(description = "Tipo de documento", required = true, example = "CEDULA") @PathVariable TipoDocumento tipoDocumento,
             @Parameter(description = "Número de documento (6 a 10 dígitos)", required = true, example = "123456")
             @PathVariable @Size(min = 6, max = 10) @Pattern(regexp = "\\d+") String numeroDocumento) {
         return new ResponseEntity<>(serviceCliente.buscarPorDocumento(tipoDocumento, numeroDocumento), HttpStatus.OK);
@@ -99,7 +102,7 @@ public class ClienteController {
             @Pattern(regexp = "\\d+", message = "El número de cuenta debe contener solo dígitos")
             String numeroCuenta
     ) {
-        return new ResponseEntity<>(serviceCliente.asociarClienteCuentaUseCase(numeroDocumento, numeroCuenta), HttpStatus.OK);
+        return new ResponseEntity<>(serviceCliente.asociarClienteCuentaUseCase(tipoDocumento, numeroDocumento, numeroCuenta), HttpStatus.OK);
     }
 
 
@@ -120,7 +123,7 @@ public class ClienteController {
             @Pattern(regexp = "\\d+", message = "El número de tarjeta debe contener solo dígitos")
             String numeroTarjeta
     ) {
-        return new ResponseEntity<>(serviceCliente.asociarClienteTarjetaUseCase(numeroDocumento, numeroTarjeta), HttpStatus.OK);
+        return new ResponseEntity<>(serviceCliente.asociarClienteTarjetaUseCase(tipoDocumento, numeroDocumento, numeroTarjeta), HttpStatus.OK);
     }
 
 }

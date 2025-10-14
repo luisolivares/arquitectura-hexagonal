@@ -18,11 +18,11 @@ public class ApplicationConfig {
 
     @Bean
     public ServiceCuenta serviceCuenta(CuentaRepositoryPort port) {
-        AltaCuentaUseCaseImpl altaCuentaUseCaseImpl = new AltaCuentaUseCaseImpl(port);
-        BuscarCuentaUseCaseImpl buscarCuentaUseCaseImpl = new BuscarCuentaUseCaseImpl(port);
-        ModificarCuentaUseCaseImpl modificarCuentaUseCaseImpl = new ModificarCuentaUseCaseImpl(port);
-        BajaCuentaUseCaseImpl bajaCuentaUseCaseImpl = new BajaCuentaUseCaseImpl(port);
-        return new ServiceCuenta(altaCuentaUseCaseImpl, buscarCuentaUseCaseImpl, modificarCuentaUseCaseImpl, bajaCuentaUseCaseImpl);
+        AltaCuentaUseCase altaCuentaUseCase = new AltaCuentaUseCaseImpl(port);
+        BuscarCuentaUseCase buscarCuentaUseCase = new BuscarCuentaUseCaseImpl(port);
+        ModificarCuentaUseCase modificarCuentaUseCase = new ModificarCuentaUseCaseImpl(port);
+        BajaCuentaUseCase bajaCuentaUseCase = new BajaCuentaUseCaseImpl(port);
+        return new ServiceCuenta(altaCuentaUseCase, buscarCuentaUseCase, modificarCuentaUseCase, bajaCuentaUseCase);
     }
 
     @Bean
@@ -45,16 +45,15 @@ public class ApplicationConfig {
         return new ServiceTarjeta(altaTarjetaUseCase, bajaTarjetaUseCase, buscarTarjetaUseCase, modificarTarjetaUseCase);
     }
 
-
     @Bean
-    public ServiceMovimiento serviceMovimiento(MovimientoRepositoryPort port, ClienteRepositoryPort clienteRepositoryPort, CuentaRepositoryPort cuentaRepositoryPort) {
+    public ServiceMovimiento serviceMovimiento(MovimientoRepositoryPort port, ClienteRepositoryPort clienteRepositoryPort, CuentaRepositoryPort cuentaRepositoryPort, TarjetaRepositoryPort tarjetaRepositoryPort) {
         AltaMovimientoUseCase altaMovimientoUseCase = new AltaMovimientoUseCaseImpl(port);
         BuscarMovimientoUseCase buscarMovimientoUseCase = new BuscarMovimientoUseCaseImpl(port);
         ModificarMovimientoUseCase modificarMovimientoUseCase = new ModificarMovimientoUseCaseImpl(port);
         BajaMovimientoUseCase bajaMovimientoUseCase = new BajaMovimientoUseCaseImpl(port);
         AsociarMovimientoClienteCuentaUseCase asociarMovimientoClienteCuentaUseCase = new AsociarMovimientoClienteCuentaUseCaseImpl(clienteRepositoryPort, cuentaRepositoryPort, port);
-        return new ServiceMovimiento(altaMovimientoUseCase, buscarMovimientoUseCase, modificarMovimientoUseCase, bajaMovimientoUseCase, asociarMovimientoClienteCuentaUseCase);
+        AsociarMovimientoClienteTarjetaUseCase asociarMovimientoClienteTarjetaUseCase = new AsociarMovimientoClienteTarjetaUseCaseImpl(clienteRepositoryPort, tarjetaRepositoryPort, port);
+        return new ServiceMovimiento(altaMovimientoUseCase, buscarMovimientoUseCase, modificarMovimientoUseCase, bajaMovimientoUseCase, asociarMovimientoClienteCuentaUseCase, asociarMovimientoClienteTarjetaUseCase);
     }
-
 
 }

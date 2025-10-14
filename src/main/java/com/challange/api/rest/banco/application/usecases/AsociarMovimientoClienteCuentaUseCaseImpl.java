@@ -1,14 +1,20 @@
 package com.challange.api.rest.banco.application.usecases;
 
+import com.challange.api.rest.banco.dominio.exceptions.MovimientoException;
 import com.challange.api.rest.banco.dominio.model.Cliente;
 import com.challange.api.rest.banco.dominio.model.Cuenta;
 import com.challange.api.rest.banco.dominio.model.Movimiento;
+import com.challange.api.rest.banco.dominio.model.TipoDocumento;
 import com.challange.api.rest.banco.dominio.ports.in.AsociarMovimientoClienteCuentaUseCase;
 import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
 import com.challange.api.rest.banco.dominio.ports.out.CuentaRepositoryPort;
 import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
 
+import java.util.Optional;
+
 public class AsociarMovimientoClienteCuentaUseCaseImpl implements AsociarMovimientoClienteCuentaUseCase {
+
+    private static String errorAsociarMovimientoClienteCuenta;
 
     private final ClienteRepositoryPort clienteRepositoryPort;
     private final CuentaRepositoryPort cuentaRepositoryPort;
@@ -21,9 +27,20 @@ public class AsociarMovimientoClienteCuentaUseCaseImpl implements AsociarMovimie
     }
 
     @Override
-    public Movimiento asociarMovimientoClienteCuentaUseCase(Movimiento movimiento, String numeroDocumentoCliente, String numeroCuenta) {
-        Cliente cliente = clienteRepositoryPort.buscarPorNumeroDocumento(numeroDocumentoCliente);
-        Cuenta cuenta = cuentaRepositoryPort.buscarCuentaPorNumeroCuenta(numeroCuenta);
-        return movimientoRepositoryPort.asociarClienteCuentaMovimiento(movimiento, cliente, cuenta);
+    public Movimiento asociarMovimientoClienteCuentaUseCase(Movimiento movimiento, TipoDocumento tipoDocumento, String numeroDocumentoCliente, String numeroCuenta) {
+        Optional<Cliente> cliente = Optional.ofNullable(clienteRepositoryPort.buscarPorTipoYNumeroDocumento(tipoDocumento, numeroDocumentoCliente));
+        Optional<Cuenta> cuenta = Optional.ofNullable(cuentaRepositoryPort.buscarCuentaPorNumeroCuenta(numeroCuenta));
+
+        if (cliente.isEmpty()) {
+            errorAsociarMovimientoClienteCuenta = String.format("No existe el cliente %s %s", tipoDocumento, numeroDocumentoCliente);
+            throw new MovimientoException(errorAsociarMovimientoClienteCuenta, 404);
+        }
+
+        if (cuenta.isEmpty()) {
+            errorAsociarMovimientoClienteCuenta = String.format("No existe la cuenta %s", numeroCuenta);
+            throw new MovimientoException(errorAsociarMovimientoClienteCuenta, 404);
+        }
+
+        return movimientoRepositoryPort.asociarClienteCuentaMovimiento(movimiento, cliente.get(), cuenta.get());
     }
 }

@@ -1,10 +1,12 @@
-package com.challange.api.rest.banco.infrastructure.repository;
+package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
 import com.challange.api.rest.banco.dominio.model.*;
 import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.ClienteEntity;
 import com.challange.api.rest.banco.infrastructure.entity.CuentaEntity;
 import com.challange.api.rest.banco.infrastructure.entity.MovimientoEntity;
+import com.challange.api.rest.banco.infrastructure.entity.TarjetaEntity;
+import com.challange.api.rest.banco.infrastructure.repository.MovimientoRepository;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +42,6 @@ public class JPAMovimientoRepositoryAdapter implements MovimientoRepositoryPort 
     @Override
     public List<Movimiento> buscarMovimientoPor(TipoMovimiento tipoMovimiento, TipoCanal tipoCanal, LocalDate fechaDesde, LocalDate fechaHasta, int page, int size) {
 
-
         Specification<MovimientoEntity> spec = filtrar(
                 tipoMovimiento, tipoCanal, fechaDesde, fechaHasta
         );
@@ -72,66 +73,71 @@ public class JPAMovimientoRepositoryAdapter implements MovimientoRepositoryPort 
         }
     }
 
+    @Override
+    public Movimiento buscarMovimientoPorId(long idMovimiento) {
+        Optional<MovimientoEntity> movimientoEntity = movimientoRepository.buscarPorId(idMovimiento);
+        return ObjectMapperUtils.map(movimientoEntity.get(), Movimiento.class);
+    }
+
+    @Override
+    public Movimiento buscarMovimientoPorReferenciaOperacion(String referenciaOperacion) {
+        Optional<MovimientoEntity> movimientoEntity = movimientoRepository.buscarPorReferencia(referenciaOperacion);
+        return ObjectMapperUtils.map(movimientoEntity.get(), Movimiento.class);
+    }
+
     @Transactional(readOnly = true)
     @Override
-    public Movimiento modificarMovimiento(Movimiento movimiento, long idMovimiento) {
-
-        Optional<MovimientoEntity> movimientoEntity = movimientoRepository.buscarPorId(idMovimiento);
-
-        if (movimientoEntity.isPresent()) {
-            movimientoEntity.get().setSaldoInicial(movimiento.getSaldoInicial());
-            movimientoEntity.get().setSaldoMovimiento(movimiento.getSaldoMovimiento());
-            movimientoEntity.get().setSaldoDisponible(movimiento.getSaldoDisponible());
-            movimientoEntity.get().setFechaMovimiento(movimiento.getFechaMovimiento());
-            movimientoEntity.get().setTipoMovimiento(movimiento.getTipoMovimiento());
-            movimientoEntity.get().setTipoCanal(movimiento.getTipoCanal());
-            movimientoEntity.get().setConcepto(movimiento.getConcepto());
-            movimientoEntity.get().setTipoDivisa(movimiento.getTipoDivisa());
-
-            return ObjectMapperUtils.map(movimientoRepository.saveAndFlush(movimientoEntity.get()), Movimiento.class);
-
-        } else {
-            return null;
-        }
+    public Movimiento modificarMovimiento(Movimiento movimiento) {
+        MovimientoEntity movimientoEntity = ObjectMapperUtils.map(movimiento, MovimientoEntity.class);
+        return ObjectMapperUtils.map(movimientoRepository.saveAndFlush(movimientoEntity), Movimiento.class);
     }
 
     @Transactional
     @Override
-    public Movimiento baja(int idMovimiento, boolean esBaja) {
-        return null;
+    public void baja(long idMovimiento) {
+        Optional<MovimientoEntity> movimientoEntity = movimientoRepository.buscarPorId(idMovimiento);
+        movimientoRepository.delete(movimientoEntity.get());
     }
 
     @Transactional
     @Override
     public Movimiento asociarClienteCuentaMovimiento(Movimiento movimiento, Cliente cliente, Cuenta cuenta) {
 
-        Optional<Cuenta> cuentaOptional = Optional.ofNullable(cuenta);
-        Optional<Cliente> clienteOptional = Optional.ofNullable(cliente);
+        ClienteEntity clienteEntity = ObjectMapperUtils.map(cliente, ClienteEntity.class);
+        CuentaEntity cuentaEntity = ObjectMapperUtils.map(cuenta, CuentaEntity.class);
 
-        Optional<MovimientoEntity> movimientoEntity = movimientoRepository.buscarPorReferencia(movimiento.getReferenciaOperacion());
-        if (movimientoEntity.isPresent() && clienteOptional.isPresent() && cuentaOptional.isPresent()) {
-            ClienteEntity clienteEntity = ObjectMapperUtils.map(cliente, ClienteEntity.class);
-            CuentaEntity cuentaEntity = ObjectMapperUtils.map(cuenta, CuentaEntity.class);
+//        MovimientoEntity movimientoEntityAdd = new MovimientoEntity();
+//        movimientoEntityAdd.setSaldoInicial(movimiento.getSaldoInicial());
+//        movimientoEntityAdd.setSaldoMovimiento(movimiento.getSaldoMovimiento());
+//        movimientoEntityAdd.setSaldoDisponible(movimiento.getSaldoDisponible());
+//        movimientoEntityAdd.setFechaMovimiento(movimiento.getFechaMovimiento());
+//        movimientoEntityAdd.setTipoMovimiento(movimiento.getTipoMovimiento());
+//        movimientoEntityAdd.setTipoCanal(movimiento.getTipoCanal());
+//        movimientoEntityAdd.setConcepto(movimiento.getConcepto());
+//        movimientoEntityAdd.setTipoDivisa(movimiento.getTipoDivisa());
+//        movimientoEntityAdd.setReferenciaOperacion(movimiento.getReferenciaOperacion());
 
-            MovimientoEntity movimientoEntityAdd = new MovimientoEntity();
-            movimientoEntityAdd.setSaldoInicial(movimiento.getSaldoInicial());
-            movimientoEntityAdd.setSaldoMovimiento(movimiento.getSaldoMovimiento());
-            movimientoEntityAdd.setSaldoDisponible(movimiento.getSaldoDisponible());
-            movimientoEntityAdd.setFechaMovimiento(movimiento.getFechaMovimiento());
-            movimientoEntityAdd.setTipoMovimiento(movimiento.getTipoMovimiento());
-            movimientoEntityAdd.setTipoCanal(movimiento.getTipoCanal());
-            movimientoEntityAdd.setConcepto(movimiento.getConcepto());
-            movimientoEntityAdd.setTipoDivisa(movimiento.getTipoDivisa());
-            movimientoEntityAdd.setReferenciaOperacion(movimiento.getReferenciaOperacion());
-            // Asociar cliente y cuenta ya cargados de BD
-            movimientoEntityAdd.setCliente(clienteEntity);
-            movimientoEntityAdd.setCuenta(cuentaEntity);
+        MovimientoEntity movimientoEntityAdd = ObjectMapperUtils.map(movimiento, MovimientoEntity.class);
+        // Asociar cliente y cuenta ya cargados de BD
+        movimientoEntityAdd.setCliente(clienteEntity);
+        movimientoEntityAdd.setCuenta(cuentaEntity);
 
-            return ObjectMapperUtils.map(movimientoRepository.saveAndFlush(movimientoEntityAdd), Movimiento.class);
+        return ObjectMapperUtils.map(movimientoRepository.saveAndFlush(movimientoEntityAdd), Movimiento.class);
 
-        } else {
-            return null;
-        }
+    }
+
+    @Override
+    public Movimiento asociarClienteTarjetaMovimiento(Movimiento movimiento, Cliente cliente, Tarjeta tarjeta) {
+
+        ClienteEntity clienteEntity = ObjectMapperUtils.map(cliente, ClienteEntity.class);
+        TarjetaEntity tarjetaEntity = ObjectMapperUtils.map(tarjeta, TarjetaEntity.class);
+
+        MovimientoEntity movimientoEntityAdd = ObjectMapperUtils.map(movimiento, MovimientoEntity.class);
+        // Asociar cliente y cuenta ya cargados de BD
+        movimientoEntityAdd.setCliente(clienteEntity);
+        movimientoEntityAdd.setTarjeta(tarjetaEntity);
+
+        return ObjectMapperUtils.map(movimientoRepository.saveAndFlush(movimientoEntityAdd), Movimiento.class);
     }
 
     private static Specification<MovimientoEntity> filtrar(

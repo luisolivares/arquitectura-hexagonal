@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -37,7 +39,7 @@ public class TarjetaController {
     @Operation(summary = "Alta de tarjeta", description = "Crea una nueva tarjeta en el sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tarjeta creada correctamente",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Tarjeta.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos", content = @Content)
     })
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,6 +54,7 @@ public class TarjetaController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))),
             @ApiResponse(responseCode = "404", description = "Tarjeta no encontrada", content = @Content)
     })
+
     @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Tarjeta> modificar(@Valid @RequestBody TarjetaRequest request) {
         Tarjeta tarjeta = ObjectMapperUtils.map(request, Tarjeta.class);
@@ -61,12 +64,13 @@ public class TarjetaController {
     @Operation(summary = "Listar tarjetas", description = "Obtiene una lista de todas las tarjetas de manera paginada.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listado de tarjetas obtenido correctamente",
-                    content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Tarjeta.class))))
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = Tarjeta.class))))
     })
-    @GetMapping(value = "/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Tarjeta>> buscarTodasTarjetas(
-            @Parameter(description = "Número de página (0-index)", required = true, example = "0") @PathVariable int page,
-            @Parameter(description = "Cantidad de resultados por página (máx. 100)", required = true, example = "10") @PathVariable int size) {
+            @RequestParam(required = true, name = "page", defaultValue = "0") @Min(0) int page,
+            @RequestParam(required = true, name = "size", defaultValue = "10") @Min(1) @Max(100) int size) {
         return new ResponseEntity<>(serviceTarjeta.buscarTodasTarjetas(page, size), HttpStatus.OK);
     }
 
