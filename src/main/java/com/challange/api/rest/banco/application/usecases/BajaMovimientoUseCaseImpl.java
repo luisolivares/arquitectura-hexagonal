@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.ports.in.BajaMovimientoUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.in.BajaMovimientoUseCase;
+import com.challange.api.rest.banco.domain.ports.out.MovimientoRepositoryPort;
 
 public class BajaMovimientoUseCaseImpl implements BajaMovimientoUseCase {
 

@@ -1,6 +1,6 @@
 package com.challange.api.rest.banco.infrastructure.model.request;
 
-import com.challange.api.rest.banco.dominio.model.TipoCuenta;
+import com.challange.api.rest.banco.domain.model.TipoCuenta;
 import com.challange.api.rest.banco.infrastructure.utils.LocalDateDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.constraints.*;

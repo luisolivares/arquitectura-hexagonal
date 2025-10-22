@@ -1,11 +1,11 @@
 package com.challange.api.rest.banco.application.services;
 
-import com.challange.api.rest.banco.dominio.exceptions.TarjetaException;
-import com.challange.api.rest.banco.dominio.model.Tarjeta;
-import com.challange.api.rest.banco.dominio.ports.in.AltaTarjetaUseCase;
-import com.challange.api.rest.banco.dominio.ports.in.BajaTarjetaUseCase;
-import com.challange.api.rest.banco.dominio.ports.in.BuscarTarjetaUseCase;
-import com.challange.api.rest.banco.dominio.ports.in.ModificarTarjetaUseCase;
+import com.challange.api.rest.banco.domain.exceptions.TarjetaException;
+import com.challange.api.rest.banco.domain.model.Tarjeta;
+import com.challange.api.rest.banco.domain.ports.in.AltaTarjetaUseCase;
+import com.challange.api.rest.banco.domain.ports.in.BajaTarjetaUseCase;
+import com.challange.api.rest.banco.domain.ports.in.BuscarTarjetaUseCase;
+import com.challange.api.rest.banco.domain.ports.in.ModificarTarjetaUseCase;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;

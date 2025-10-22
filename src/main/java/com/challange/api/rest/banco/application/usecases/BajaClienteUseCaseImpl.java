@@ -1,9 +1,9 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.ports.in.BajaClienteUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.ports.in.BajaClienteUseCase;
+import com.challange.api.rest.banco.domain.ports.out.ClienteRepositoryPort;
 
 public class BajaClienteUseCaseImpl implements BajaClienteUseCase {
 

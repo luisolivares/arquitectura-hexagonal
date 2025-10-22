@@ -1,10 +1,10 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.model.Movimiento;
-import com.challange.api.rest.banco.dominio.model.TipoCanal;
-import com.challange.api.rest.banco.dominio.model.TipoMovimiento;
-import com.challange.api.rest.banco.dominio.ports.in.BuscarMovimientoUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Movimiento;
+import com.challange.api.rest.banco.domain.model.TipoCanal;
+import com.challange.api.rest.banco.domain.model.TipoMovimiento;
+import com.challange.api.rest.banco.domain.ports.in.BuscarMovimientoUseCase;
+import com.challange.api.rest.banco.domain.ports.out.MovimientoRepositoryPort;
 
 import java.time.LocalDate;
 import java.util.List;

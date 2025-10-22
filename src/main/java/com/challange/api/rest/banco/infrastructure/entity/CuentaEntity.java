@@ -1,6 +1,6 @@
 package com.challange.api.rest.banco.infrastructure.entity;
 
-import com.challange.api.rest.banco.dominio.model.TipoCuenta;
+import com.challange.api.rest.banco.domain.model.TipoCuenta;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;

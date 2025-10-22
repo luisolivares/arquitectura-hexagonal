@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.model.Movimiento;
-import com.challange.api.rest.banco.dominio.ports.in.AltaMovimientoUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Movimiento;
+import com.challange.api.rest.banco.domain.ports.in.AltaMovimientoUseCase;
+import com.challange.api.rest.banco.domain.ports.out.MovimientoRepositoryPort;
 
 public class AltaMovimientoUseCaseImpl implements AltaMovimientoUseCase {
 

@@ -1,10 +1,10 @@
 package com.challange.api.rest.banco.infrastructure.controller;
 
 import com.challange.api.rest.banco.application.services.ServiceMovimiento;
-import com.challange.api.rest.banco.dominio.model.Movimiento;
-import com.challange.api.rest.banco.dominio.model.TipoCanal;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.model.TipoMovimiento;
+import com.challange.api.rest.banco.domain.model.Movimiento;
+import com.challange.api.rest.banco.domain.model.TipoCanal;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.model.TipoMovimiento;
 import com.challange.api.rest.banco.infrastructure.model.request.MovimientoRequest;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;
 import io.swagger.v3.oas.annotations.Operation;

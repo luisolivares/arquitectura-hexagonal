@@ -1,11 +1,11 @@
 package com.challange.api.rest.banco.application.services;
 
-import com.challange.api.rest.banco.dominio.exceptions.MovimientoException;
-import com.challange.api.rest.banco.dominio.model.Movimiento;
-import com.challange.api.rest.banco.dominio.model.TipoCanal;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.model.TipoMovimiento;
-import com.challange.api.rest.banco.dominio.ports.in.*;
+import com.challange.api.rest.banco.domain.exceptions.MovimientoException;
+import com.challange.api.rest.banco.domain.model.Movimiento;
+import com.challange.api.rest.banco.domain.model.TipoCanal;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.model.TipoMovimiento;
+import com.challange.api.rest.banco.domain.ports.in.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDate;

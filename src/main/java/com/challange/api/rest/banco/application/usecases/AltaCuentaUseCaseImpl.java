@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.model.Cuenta;
-import com.challange.api.rest.banco.dominio.ports.in.AltaCuentaUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.CuentaRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Cuenta;
+import com.challange.api.rest.banco.domain.ports.in.AltaCuentaUseCase;
+import com.challange.api.rest.banco.domain.ports.out.CuentaRepositoryPort;
 
 public class AltaCuentaUseCaseImpl implements AltaCuentaUseCase {
 

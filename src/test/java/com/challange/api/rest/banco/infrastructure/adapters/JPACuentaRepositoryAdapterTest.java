@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.infrastructure.adapters;
 
-import com.challange.api.rest.banco.dominio.model.Cuenta;
-import com.challange.api.rest.banco.dominio.model.TipoCuenta;
-import com.challange.api.rest.banco.dominio.model.TipoMovimiento;
+import com.challange.api.rest.banco.domain.model.Cuenta;
+import com.challange.api.rest.banco.domain.model.TipoCuenta;
+import com.challange.api.rest.banco.domain.model.TipoMovimiento;
 import com.challange.api.rest.banco.infrastructure.repository.adapter.JPACuentaRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
