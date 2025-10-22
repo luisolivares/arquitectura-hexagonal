@@ -1,9 +1,9 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.ports.in.BuscarClienteUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.ports.in.BuscarClienteUseCase;
+import com.challange.api.rest.banco.domain.ports.out.ClienteRepositoryPort;
 
 import java.util.List;
 

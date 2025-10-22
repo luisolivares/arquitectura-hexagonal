@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.model.response;
 
-import com.challange.api.rest.banco.dominio.model.TipoCuenta;
-import com.challange.api.rest.banco.dominio.model.TipoMovimiento;
+import com.challange.api.rest.banco.domain.model.TipoCuenta;
+import com.challange.api.rest.banco.domain.model.TipoMovimiento;
 import lombok.*;
 
 import java.math.BigDecimal;

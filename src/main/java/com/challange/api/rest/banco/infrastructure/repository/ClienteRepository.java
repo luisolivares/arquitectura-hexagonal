@@ -1,6 +1,6 @@
 package com.challange.api.rest.banco.infrastructure.repository;
 
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
 import com.challange.api.rest.banco.infrastructure.entity.ClienteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

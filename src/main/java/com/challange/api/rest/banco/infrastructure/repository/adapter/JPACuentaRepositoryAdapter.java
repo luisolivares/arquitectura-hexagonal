@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
-import com.challange.api.rest.banco.dominio.model.Cuenta;
-import com.challange.api.rest.banco.dominio.ports.out.CuentaRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Cuenta;
+import com.challange.api.rest.banco.domain.ports.out.CuentaRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.CuentaEntity;
 import com.challange.api.rest.banco.infrastructure.repository.CuentaRepository;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;

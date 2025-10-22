@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.entity;
 
-import com.challange.api.rest.banco.dominio.model.EmisorTarjeta;
-import com.challange.api.rest.banco.dominio.model.TipoTarjeta;
+import com.challange.api.rest.banco.domain.model.EmisorTarjeta;
+import com.challange.api.rest.banco.domain.model.TipoTarjeta;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

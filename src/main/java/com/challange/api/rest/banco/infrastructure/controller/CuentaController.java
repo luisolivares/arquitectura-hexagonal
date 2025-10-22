@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.controller;
 
 import com.challange.api.rest.banco.application.services.ServiceCuenta;
-import com.challange.api.rest.banco.dominio.model.Cuenta;
+import com.challange.api.rest.banco.domain.model.Cuenta;
 import com.challange.api.rest.banco.infrastructure.model.request.CuentaRequest;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;
 import io.swagger.v3.oas.annotations.Operation;

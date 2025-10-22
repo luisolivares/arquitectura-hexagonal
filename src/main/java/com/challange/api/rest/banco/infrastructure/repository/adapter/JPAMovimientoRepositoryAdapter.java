@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
-import com.challange.api.rest.banco.dominio.model.*;
-import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
+import com.challange.api.rest.banco.domain.model.*;
+import com.challange.api.rest.banco.domain.ports.out.MovimientoRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.ClienteEntity;
 import com.challange.api.rest.banco.infrastructure.entity.CuentaEntity;
 import com.challange.api.rest.banco.infrastructure.entity.MovimientoEntity;

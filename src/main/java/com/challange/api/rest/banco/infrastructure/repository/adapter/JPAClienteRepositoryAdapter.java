@@ -1,10 +1,10 @@
 package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.Cuenta;
-import com.challange.api.rest.banco.dominio.model.Tarjeta;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.Cuenta;
+import com.challange.api.rest.banco.domain.model.Tarjeta;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.ports.out.ClienteRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.ClienteEntity;
 import com.challange.api.rest.banco.infrastructure.entity.CuentaEntity;
 import com.challange.api.rest.banco.infrastructure.entity.TarjetaEntity;

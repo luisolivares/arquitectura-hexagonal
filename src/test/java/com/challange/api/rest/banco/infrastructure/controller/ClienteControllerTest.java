@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.infrastructure.controller;
 
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.Genero;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.Genero;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
 import com.challange.api.rest.banco.infrastructure.utils.Utils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

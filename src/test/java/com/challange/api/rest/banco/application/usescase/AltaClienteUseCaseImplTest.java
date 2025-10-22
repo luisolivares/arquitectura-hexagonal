@@ -1,10 +1,10 @@
 package com.challange.api.rest.banco.application.usescase;
 
 import com.challange.api.rest.banco.application.usecases.AltaClienteUseCaseImpl;
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.Genero;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.Genero;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.ports.out.ClienteRepositoryPort;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;

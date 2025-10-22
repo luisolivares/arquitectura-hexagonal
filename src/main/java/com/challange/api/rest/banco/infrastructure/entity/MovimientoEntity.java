@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.infrastructure.entity;
 
-import com.challange.api.rest.banco.dominio.model.TipoCanal;
-import com.challange.api.rest.banco.dominio.model.TipoDivisa;
-import com.challange.api.rest.banco.dominio.model.TipoMovimiento;
+import com.challange.api.rest.banco.domain.model.TipoCanal;
+import com.challange.api.rest.banco.domain.model.TipoDivisa;
+import com.challange.api.rest.banco.domain.model.TipoMovimiento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

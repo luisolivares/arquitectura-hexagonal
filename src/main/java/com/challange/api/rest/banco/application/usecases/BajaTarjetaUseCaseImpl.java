@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.model.Tarjeta;
-import com.challange.api.rest.banco.dominio.ports.in.BajaTarjetaUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.TarjetaRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Tarjeta;
+import com.challange.api.rest.banco.domain.ports.in.BajaTarjetaUseCase;
+import com.challange.api.rest.banco.domain.ports.out.TarjetaRepositoryPort;
 
 public class BajaTarjetaUseCaseImpl implements BajaTarjetaUseCase {
 

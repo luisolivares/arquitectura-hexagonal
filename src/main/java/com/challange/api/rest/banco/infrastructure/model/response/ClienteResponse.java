@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.model.response;
 
-import com.challange.api.rest.banco.dominio.model.Genero;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.model.Genero;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
 import lombok.*;
 
 import java.time.LocalDateTime;
