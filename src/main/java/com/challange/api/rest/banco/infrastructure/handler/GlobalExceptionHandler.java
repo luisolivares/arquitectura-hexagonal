@@ -1,9 +1,9 @@
 package com.challange.api.rest.banco.infrastructure.handler;
 
-import com.challange.api.rest.banco.dominio.exceptions.ClienteException;
-import com.challange.api.rest.banco.dominio.exceptions.CuentaException;
-import com.challange.api.rest.banco.dominio.exceptions.MovimientoException;
-import com.challange.api.rest.banco.dominio.exceptions.TarjetaException;
+import com.challange.api.rest.banco.domain.exceptions.ClienteException;
+import com.challange.api.rest.banco.domain.exceptions.CuentaException;
+import com.challange.api.rest.banco.domain.exceptions.MovimientoException;
+import com.challange.api.rest.banco.domain.exceptions.TarjetaException;
 import com.challange.api.rest.banco.infrastructure.common.ResponseApiDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;

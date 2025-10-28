@@ -5,11 +5,11 @@ import com.challange.api.rest.banco.application.services.ServiceCuenta;
 import com.challange.api.rest.banco.application.services.ServiceMovimiento;
 import com.challange.api.rest.banco.application.services.ServiceTarjeta;
 import com.challange.api.rest.banco.application.usecases.*;
-import com.challange.api.rest.banco.dominio.ports.in.*;
-import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
-import com.challange.api.rest.banco.dominio.ports.out.CuentaRepositoryPort;
-import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
-import com.challange.api.rest.banco.dominio.ports.out.TarjetaRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.in.*;
+import com.challange.api.rest.banco.domain.ports.out.ClienteRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.out.CuentaRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.out.MovimientoRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.out.TarjetaRepositoryPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,8 +1,8 @@
 package com.challange.api.rest.banco.infrastructure.controller;
 
 import com.challange.api.rest.banco.application.services.ServiceCliente;
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
 import com.challange.api.rest.banco.infrastructure.model.request.ClienteRequest;
 import com.challange.api.rest.banco.infrastructure.utils.ObjectMapperUtils;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,9 +1,9 @@
 package com.challange.api.rest.banco.application.services;
 
-import com.challange.api.rest.banco.dominio.exceptions.ClienteException;
-import com.challange.api.rest.banco.dominio.model.Cliente;
-import com.challange.api.rest.banco.dominio.model.TipoDocumento;
-import com.challange.api.rest.banco.dominio.ports.in.*;
+import com.challange.api.rest.banco.domain.exceptions.ClienteException;
+import com.challange.api.rest.banco.domain.model.Cliente;
+import com.challange.api.rest.banco.domain.model.TipoDocumento;
+import com.challange.api.rest.banco.domain.ports.in.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;

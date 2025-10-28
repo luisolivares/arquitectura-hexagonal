@@ -1,11 +1,11 @@
 package com.challange.api.rest.banco.application.usecases;
 
-import com.challange.api.rest.banco.dominio.exceptions.MovimientoException;
-import com.challange.api.rest.banco.dominio.model.*;
-import com.challange.api.rest.banco.dominio.ports.in.AsociarMovimientoClienteTarjetaUseCase;
-import com.challange.api.rest.banco.dominio.ports.out.ClienteRepositoryPort;
-import com.challange.api.rest.banco.dominio.ports.out.MovimientoRepositoryPort;
-import com.challange.api.rest.banco.dominio.ports.out.TarjetaRepositoryPort;
+import com.challange.api.rest.banco.domain.exceptions.MovimientoException;
+import com.challange.api.rest.banco.domain.model.*;
+import com.challange.api.rest.banco.domain.ports.in.AsociarMovimientoClienteTarjetaUseCase;
+import com.challange.api.rest.banco.domain.ports.out.ClienteRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.out.MovimientoRepositoryPort;
+import com.challange.api.rest.banco.domain.ports.out.TarjetaRepositoryPort;
 
 import java.util.Optional;
 

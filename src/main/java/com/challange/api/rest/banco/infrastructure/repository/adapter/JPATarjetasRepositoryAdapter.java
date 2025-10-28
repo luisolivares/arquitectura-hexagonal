@@ -1,7 +1,7 @@
 package com.challange.api.rest.banco.infrastructure.repository.adapter;
 
-import com.challange.api.rest.banco.dominio.model.Tarjeta;
-import com.challange.api.rest.banco.dominio.ports.out.TarjetaRepositoryPort;
+import com.challange.api.rest.banco.domain.model.Tarjeta;
+import com.challange.api.rest.banco.domain.ports.out.TarjetaRepositoryPort;
 import com.challange.api.rest.banco.infrastructure.entity.ClienteEntity;
 import com.challange.api.rest.banco.infrastructure.entity.TarjetaEntity;
 import com.challange.api.rest.banco.infrastructure.repository.ClienteRepository;
