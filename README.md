@@ -1,7 +1,7 @@
 # API REST Bancaria con Spring Boot 3 + Docker Compose
 
-Este proyecto es una **API REST** construida con **Spring Boot 3**, utilizando **H2** como base de datos en memoria y
-documentada con **Swagger OpenAPI**.
+Este proyecto es una **API REST** construida con **Spring Boot 3**, utilizando **H2** como base de datos en memoria (para desarrollo rápido) y 
+**MySQL** como base persistente en entornos Docker, documentada con **Swagger OpenAPI**.
 
 Se provee un `Dockerfile` y un `docker-compose.yml` para facilitar la ejecución sin necesidad de tener Maven ni JDK
 instalados en la máquina host.
@@ -15,7 +15,7 @@ modificaciones, y consultas.
 
 - Java 17
 - Spring Boot 3
-- Spring Data JPA (con H2 en memoria)
+- Spring Data JPA (con H2 en memoria y MySQL para Docker)
 - Spring Validation
 - Springdoc OpenAPI (Swagger UI)
 - JUnit Mockito
@@ -61,28 +61,61 @@ Levantar el contenedor mapeando el puerto 8080.
 - Levantar los contenedores de:
 
     - Microservicio Spring Boot (puerto 8080)
-
+    - MySQL (puerto 3306)
+    - phpMyAdmin (puerto 8081)
     - Prometheus (puerto 9090)
-
     - Grafana (puerto 3000)
 
 ### 5. Acceder a la aplicación
 
-- **API Base** → http://localhost:8080/challange-api-rest-banco
 
-- **API Base para verificar funcionamiento** → http://localhost:8080/challange-api-rest-banco/api/v1/healthz
+### API y documentación ###
 
-- **Swagger UI** → http://localhost:8080/challange-api-rest-banco/swagger-ui/index.html
+- API Base: http://localhost:8080/challange-api-rest-banco
 
-- **Consola H2** → http://localhost:8080/challange-api-rest-banco/h2-console
+- Health Check: http://localhost:8080/challange-api-rest-banco/api/v1/healthz
 
-- **Driver:** org.h2.Driver
+- Swagger UI: http://localhost:8080/challange-api-rest-banco/swagger-ui/index.html
 
-- **URL:** jdbc:h2:mem:banco;MODE=MySQL
+### Base de datos en memoria H2 (solo desarrollo rápido) ###
 
-- **User:** sa
+- Consola H2: http://localhost:8080/challange-api-rest-banco/h2-console
 
-- **Password:** sa
+- Driver: org.h2.Driver
+
+- URL: jdbc:h2:mem:banco;MODE=MySQL
+
+- Usuario: sa
+
+- Contraseña: sa
+
+### Base de datos MySQL (persistente en Docker) ###
+
+- Contenedor MySQL: mysql-banco
+
+- Puerto expuesto: 3306
+
+- Base de datos: bancodb
+
+- Usuario: banco_user
+
+- Contraseña: banco_pass
+
+### Acceso mediante phpMyAdmin ###
+
+- URL: http://localhost:8081/
+
+- Servidor (Server): mysql
+
+- Usuario: root
+
+- Contraseña: rootpass
+
+También puedes conectarte usando banco_user para trabajar con la base bancodb.
+
+
+
+
 
 ---
 
@@ -166,8 +199,12 @@ docker compose down
 
 ### Notas
 
-La base de datos H2 es en memoria, por lo que los datos se pierden al detener el contenedor.
+- La base de datos H2 es en memoria; los datos se pierden al detener el contenedor.
 
-Swagger UI ya está habilitado por defecto para documentar la API.
+- La base de datos MySQL persiste datos en el volumen Docker mysql_data.
 
-Con este setup, no es necesario tener Maven ni JDK en la máquina host, todo se construye dentro del contenedor.
+- Swagger UI ya está habilitado por defecto para documentar la API.
+
+- Con este setup no es necesario tener Maven ni JDK en la máquina host, todo se construye dentro del contenedor.
+
+- phpMyAdmin facilita explorar y manipular la base MySQL desde el navegador.
