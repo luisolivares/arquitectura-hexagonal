@@ -50,7 +50,7 @@ public class CuentaController {
     @Operation(summary = "Buscar cuenta por número", description = "Obtiene los detalles de una cuenta a partir de su número único")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cuenta encontrada",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class))),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Cuenta.class))),
             @ApiResponse(responseCode = "404", description = "Cuenta no encontrada", content = @Content)
     })
     @GetMapping(value = "/{numeroCuenta}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,7 +63,7 @@ public class CuentaController {
     @Operation(summary = "Listar cuentas paginadas", description = "Devuelve todas las cuentas del sistema en formato paginado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listado de cuentas obtenido",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class)))
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Cuenta.class)))
     })
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Cuenta>> buscarTodasCuentas(
@@ -77,7 +77,7 @@ public class CuentaController {
     @Operation(summary = "Dar de baja o activar cuenta", description = "Cambia el estado de una cuenta (activa/inactiva)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Estado de cuenta actualizado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cuenta.class))),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Cuenta.class))),
             @ApiResponse(responseCode = "404", description = "Cuenta no encontrada", content = @Content)
     })
     @DeleteMapping(value = "/{numeroCuenta}/", produces = MediaType.APPLICATION_JSON_VALUE)
